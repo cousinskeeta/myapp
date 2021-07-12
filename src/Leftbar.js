@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
+import getOHLC from './getOHLC'
 
 
 function Leftbar({ title , fetchUrl, isLargeRow}) {
@@ -17,12 +18,8 @@ function Leftbar({ title , fetchUrl, isLargeRow}) {
 
     },[fetchUrl]);
 
-    const handleClick = (coin) => {
-        if (coinOHLC) {
-            setCoinOHLC('');
-        } else {
-            coinOHLC(coin?.symbol || "").catch((error) => console.log(error));
-        }
+    function handleClick(coin){
+        console.log("loading " + coin.id)
     };
 
     return ( 
@@ -31,9 +28,9 @@ function Leftbar({ title , fetchUrl, isLargeRow}) {
             <div className="col1__info">
                 {coins.map((coin) => (
                     <div key={coin.id} 
-                        onClick={() => handleClick(coin)}
+                        onClick={() => {handleClick(coin)}}
                         className={`col1__info ${isLargeRow && "col1__infoLarge"}`}>
-                        {coin.symbol } {coin.name}
+                        Symbol: {coin.symbol } ; Name:{coin.name} 
                      </div> 
                 ))}
             </div>
